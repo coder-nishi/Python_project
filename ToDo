@@ -1,0 +1,70 @@
+class Task:
+    def __init__(self, title, description, status='Todo'):
+        self.title = title
+        self.description = description
+        self.status = status
+
+    def __str__(self):
+        return f"{self.title} - {self.description} - Status: {self.status}"
+
+
+class TaskManager:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def remove_task(self, title):
+        for task in self.tasks:
+            if task.title == title:
+                self.tasks.remove(task)
+                return True
+        return False
+
+    def get_all_tasks(self):
+        return self.tasks
+
+    def get_task(self, title):
+        for task in self.tasks:
+            if task.title == title:
+                return task
+        return None
+
+    def update_task_status(self, title, new_status):
+        for task in self.tasks:
+            if task.title == title:
+                task.status = new_status
+                return True
+        return False
+
+
+# Example usage of the TaskManager class
+if __name__ == "__main__":
+    task_manager = TaskManager()
+
+    # Adding tasks
+    task1 = Task("Study Python", "Complete exercises from Python tutorial")
+    task2 = Task("Write Report", "Prepare a report on recent project")
+    task_manager.add_task(task1)
+    task_manager.add_task(task2)
+
+    # Getting all tasks
+    print("All Tasks:")
+    for task in task_manager.get_all_tasks():
+        print(task)
+
+    # Updating task status
+    task_manager.update_task_status("Study Python", "In Progress")
+
+    # Getting specific task
+    print("\nTask 'Study Python':")
+    print(task_manager.get_task("Study Python"))
+
+    # Removing a task
+    task_manager.remove_task("Write Report")
+
+    # Getting all tasks after removal
+    print("\nRemaining Tasks:")
+    for task in task_manager.get_all_tasks():
+        print(task)
